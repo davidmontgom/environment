@@ -1,0 +1,5 @@
+check process monitorUfw
+   with pidfile "/etc/sv/monitorUfw/supervise/pid"
+   start program = "/usr/bin/sv start monitorUfw"
+   stop program = "/usr/bin/sv stop monitorUfw"
+   

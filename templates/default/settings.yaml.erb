@@ -1,0 +1,42 @@
+environment: <%=node.environment%>
+location: <%=@location%>
+datacenter: <%=@datacenter%>
+AWS_ACCESS_KEY_ID: <%=@AWS_ACCESS_KEY_ID%>
+AWS_SECRET_ACCESS_KEY: <%=@AWS_SECRET_ACCESS_KEY%>
+<%=@datacenter%>:
+  <%=@location%>:
+    <%=node.environment%>:
+      api:
+        host: <%=@api['host']%>
+        port: <%=@api['port']%>
+      browser:
+        host: <%=@browser['host']%>
+        port: <%=@browser['port']%>
+      backend:
+        host: [127.0.0.1]
+        port: 8090
+      rexster:
+        host: <%=@rexster['host']%>
+        port: <%=@rexster['port']%>
+      graphite:
+        host: <%=@graphite['host']%>
+        port: 2003
+      email:
+        smtp: <%=@email['smtp']%>
+        email: <%=@email['email']%>
+        password: <%=@email['password']%>
+        port: <%=@email['port']%>
+      git:
+        git_redis_queue: <%=@git_write_redis%>
+        git_redis_queue_list: gitqueue
+      cdn:
+        host: <%=@cdn['host']%>
+        bucket: <%=@cdn['bucket']%>
+      
+      
+      
+      
+    
+
+    
+  

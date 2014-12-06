@@ -1,0 +1,5 @@
+#monit procmatch ".*/usr/bin/chef-client*"
+check process chef-client
+  with matching ".*/usr/bin/chef-client*"
+  start program = "/usr/local/bin/supervisorctl start chef-client_server:"
+  stop program = "/usr/local/bin/supervisorctl stop chef-client_server:"

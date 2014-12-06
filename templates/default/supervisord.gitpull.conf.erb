@@ -1,0 +1,19 @@
+[program:git-pull]
+command = /usr/bin/python /var/feed-devops/remote-services/git-pull.py
+autostart=true
+autorestart=true
+
+stopsignal=KILL
+stopasgroup = true
+killasgroup = true
+
+stdout_logfile=/tmp/git-pull.log
+stdout_logfile_maxbytes=100MB
+stdout_logfile_backups=10
+
+stderr_logfile = /tmp/git-pull.err
+stderr_logfile_maxbytes=10MB
+stderr_logfile_backups=10
+
+[group:git-pull_server]
+programs=git-pull
