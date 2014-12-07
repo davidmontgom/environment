@@ -79,7 +79,7 @@ git_repos.each do |repo|
   end
   
   if repo.include? "-fabric"
-    bash "add_devops_pythonpath_fabric" do
+    bash "add_fabric_pythonpath_fabric" do
       user "root"
       code <<-EOH
         echo "export PYTHONPATH=$PYTHONPATH:/var/#{repo}" | tee -a /root/.bashrc
@@ -92,16 +92,6 @@ git_repos.each do |repo|
   end
   
   if repo.include? "-settings"
-    bash "add_devops_pythonpath_settings" do
-      user "root"
-      code <<-EOH
-        echo "export PYTHONPATH=$PYTHONPATH:/var/#{repo}" | tee -a /root/.bashrc
-        source /root/.bashrc
-        touch /var/chef/cache/pythonpath-#{repo}.lock
-      EOH
-      action :run
-      not_if {File.exists?("/var/chef/cache/pythonpath-#{repo}.lock")}
-    end
     link "/etc/ec2/settings.yaml" do
       to "/var/#{repo}/settings.yaml"
     end
