@@ -45,12 +45,25 @@ git_repos.each do |repo|
     only_if {File.exists?("/var/#{repo}")}
   end
 
-  git "/var/#{repo}" do
-      repository "git@github.com:#{git_account}/#{repo}.git"
-      revision branch_name
-      action :sync
-      user "root"
+  
+  
+  if repo.include? "rtb-devops" 
+    git "/var/#{repo}" do
+        repository "git@github.com:davidmontgom/#{repo}.git"
+        revision branch_name
+        action :sync
+        user "root"
+    end
+
+  else
+    git "/var/#{repo}" do
+        repository "git@github.com:#{git_account}/#{repo}.git"
+        revision branch_name
+        action :sync
+        user "root"
+    end
   end
+  
   
   if repo.include? "-devops"
     bash "add_devops_pythonpath_devops" do
@@ -89,27 +102,12 @@ git_repos.each do |repo|
       action :run
       not_if {File.exists?("/var/chef/cache/pythonpath-#{repo}.lock")}
     end
+    link "/etc/ec2/settings.yaml" do
+      to "/var/#{repo}/settings.yaml"
+    end
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
