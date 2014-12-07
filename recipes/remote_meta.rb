@@ -22,12 +22,14 @@ directory "/etc/ec2" do
   action :create
 end
 
+=begin
 if datacenter == "aws"
   cookbook_file "/etc/ec2/#{datacenter}_#{node.chef_environment}_#{location}.pem" do
     source "#{datacenter}_#{node.chef_environment}_#{location}.pem"
     mode 0600
   end
 end
+=end
 
 file "/etc/ec2/#{node.chef_environment}" do
   owner "root"
