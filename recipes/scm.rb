@@ -1,3 +1,8 @@
+environment = node.environment
+datacenter = node.name.split('-')[0]
+server_type = node.name.split('-')[1]
+location = node.name.split('-')[2]
+
 data_bag("my_data_bag")
 db = data_bag_item("my_data_bag", "my")
 
