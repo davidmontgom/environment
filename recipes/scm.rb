@@ -19,6 +19,13 @@ else
     branch_name = "master"
 end
 
+directory "/etc/ec2" do
+  owner "root"
+  group "root"
+  mode "0755"
+  recursive true
+  action :create
+end
 
 =begin
 bash "auth_git" do
@@ -61,6 +68,21 @@ git_repos.each do |repo|
         revision branch_name
         action :sync
         user "root"
+    end
+  end
+  
+  if repo.include? "-keys"
+    if datacenter=="aws"
+      bash "add_keys" do
+        user "root"
+        code <<-EOH
+          cp /var/#{repo}/aws_* /etc/ec2
+          chmod 600 /etc/ec2/aws_*
+          touch /var/chef/cache/keys-#{repo}.lock
+        EOH
+        action :run
+        #not_if {File.exists?("/var/chef/cache/keys-#{repo}.lock")}
+      end
     end
   end
   
