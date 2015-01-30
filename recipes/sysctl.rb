@@ -4,7 +4,7 @@ bash "restart_sysctl" do
     sysctl -p /etc/sysctl.conf
     touch /var/chef/cache/sysctl.lock
   EOH
-  action :nothing 
+  action :nothing  
 end
 
 template "/etc/sysctl.conf" do
