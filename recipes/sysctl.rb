@@ -1,10 +1,19 @@
+bash "restart_sysctl" do
+  user "root"
+  code <<-EOH
+    sysctl -p /etc/sysctl.conf
+    touch /var/chef/cache/sysctl.lock
+  EOH
+  action :nothing 
+end
+
 template "/etc/sysctl.conf" do
   path "/etc/sysctl.conf"
   source "sysctl.conf.erb"
   owner "root"
   group "root"
   mode "0644"
-  notifies :run, "execute[restart_sysctl]", :immediately
+  notifies :run, "bash[restart_sysctl]", :immediately
 end
 
 execute "restart_sysctl" do
