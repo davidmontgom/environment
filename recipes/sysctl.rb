@@ -20,7 +20,8 @@ execute "restart_sysctl" do
   command "sysctl -p /etc/sysctl.conf"
   action :nothing
 end
- 
+
+
 =begin
 execute "set_ulimit" do
 #http://www.ubun2.com/question/433/how_set_ulimit_ubuntu_linux_getting_sudo_ulimit_command_not_found_error
@@ -65,4 +66,15 @@ file "/tmp/ulimit_lock" do
   group "root"
   mode "0755"
   action :create
+end
+
+bash "restart_sysctl_redis" do 
+  user "root"
+  code <<-EOH
+    sysctl -w fs.file-max=100000
+    sysctl -p /etc/sysctl.conf
+    touch /var/chef/cache/sysctl_redis.lock
+  EOH
+  action :run  
+  not_if {File.exists?("/var/chef/cache/sysctl_redis.lock")}
 end
