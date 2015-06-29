@@ -130,13 +130,17 @@ def getDisk():
     return diskpartistions
 
 def getIo():
-    io = psutil.network_io_counters(pernic=True)
     ioo={}
-    for k,iostat in io.iteritems():
-        ioo['%s.bytes_sent'%k] = iostat.bytes_sent
-        ioo['%s.bytes_recv'%k] = iostat.bytes_recv
-        ioo['%s.packets_sent'%k] = iostat.packets_sent
-        ioo['%s.packets_recv'%k] = iostat.packets_recv
+    
+    try:
+        io = psutil.network_io_counters(pernic=True)
+        for k,iostat in io.iteritems():
+            ioo['%s.bytes_sent'%k] = iostat.bytes_sent
+            ioo['%s.bytes_recv'%k] = iostat.bytes_recv
+            ioo['%s.packets_sent'%k] = iostat.packets_sent
+            ioo['%s.packets_recv'%k] = iostat.packets_recv
+    except:
+        pass
     return ioo
 
 while True:
