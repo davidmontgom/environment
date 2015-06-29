@@ -88,12 +88,16 @@ def getPysMem():
     mem['phymem.free']=phymem.free
     mem['phymem.percent']=phymem.percent
     
-    virtmem = psutil.virtmem_usage()
-    virt={}
-    virt['virtual_mem.total']=virtmem.total
-    virt['virtual_mem.used']=virtmem.used
-    virt['virtual_mem.free']=virtmem.free
-    virt['virtual_mem.percent']=virtmem.percent
+    try:
+        virtmem = psutil.virtmem_usage()
+        virt={}
+        virt['virtual_mem.total']=virtmem.total
+        virt['virtual_mem.used']=virtmem.used
+        virt['virtual_mem.free']=virtmem.free
+        virt['virtual_mem.percent']=virtmem.percent
+    except:
+        virt={}
+        
 
     return mem, virt
 
