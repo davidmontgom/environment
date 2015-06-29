@@ -77,7 +77,11 @@ def getCpu():
 
 def getPysMem():
 
-    phymem = psutil.phymem_usage()
+    try:
+        phymem = psutil.phymem_usage()
+    except:
+        phymem = psutil.virtual_memory()
+        
     mem={}
     mem['phymem.total']=phymem.total
     mem['phymem.used']=phymem.used
