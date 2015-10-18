@@ -12,16 +12,10 @@ cookbook_path = node['environment']['chef']['cookbook_path']
 
 
 environment = node.environment
-if node.name.include? "-"
-  datacenter = node.name.split('-')[0]
-  server_type = node.name.split('-')[1]
-  location = node.name.split('-')[2]
-end
-if node.name.include? "X"
-  datacenter = node.name.split('X')[0]
-  server_type = node.name.split('X')[1]
-  location = node.name.split('X')[2]
-end
+
+datacenter = node.name.split('-')[0]
+server_type = node.name.split('-')[1]
+location = node.name.split('-')[2]
 
 directory "/root/.chef" do
   owner "root"

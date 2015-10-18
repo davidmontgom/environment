@@ -1,0 +1,19 @@
+[program:git-pull-zk]
+command = /usr/bin/python /var/rtb-devops/remote-services/git-zk.py
+autostart=true
+autorestart=true
+
+stopsignal=KILL
+stopasgroup = true
+killasgroup = true
+
+stdout_logfile=/tmp/git-pull-zk.log
+stdout_logfile_maxbytes=100MB
+stdout_logfile_backups=10
+
+stderr_logfile = /tmp/git-pull-zk.err
+stderr_logfile_maxbytes=10MB
+stderr_logfile_backups=10
+
+[group:git-pull-zk_server]
+programs=git-pull-zk
