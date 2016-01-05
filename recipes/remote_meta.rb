@@ -47,7 +47,8 @@ template "/etc/ec2/meta_data.yaml" do
     :AWS_ACCESS_KEY_ID => "#{AWS_ACCESS_KEY_ID}", :AWS_SECRET_ACCESS_KEY => "#{AWS_SECRET_ACCESS_KEY}",
     :location => "#{location}", :datacenter => "#{datacenter}", 
     :server_type => "#{server_type}", :environment => "#{environment}",
-    :class_path => "#{class_path}",:settings_path => "#{settings_path}"
+    :class_path => "#{class_path}",:settings_path => "#{settings_path}",
+    :slug => "#{slug}"
   })
 end
 
