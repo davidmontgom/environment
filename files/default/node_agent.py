@@ -24,7 +24,17 @@ environment = parms['environment']
 nodename = parms['nodename']
 server_type = parms['server_type']
 location = parms['location']
-monitor_server = parms['monitor_server']
+slug = parms['slug']
+
+monitor_server = None
+while monitor_server==None:
+    try:
+        monitor_server = open('/var/chef/cache/monitor_ip_address.txt').readlines()[0].strip()
+    except:
+        monitor_server = None
+        time.sleep(1)
+        
+
 
 if running_in_pydev==True:
     delay = 10
