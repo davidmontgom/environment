@@ -1,16 +1,16 @@
-environment = node.environment
 datacenter = node.name.split('-')[0]
-server_type = node.name.split('-')[1]
-location = node.name.split('-')[2]
+location = node.name.split('-')[1]
+environment = node.name.split('-')[2]
+slug = node.name.split('-')[3] 
+server_type = node.name.split('-')[4]
 
-data_bag("my_data_bag")
-db = data_bag_item("my_data_bag", "my")
+data_bag("meta_data_bag")
+git = data_bag_item("meta_data_bag", "git")
+git_account = git["git_account"]
 
-#git_username = db['git']['Username']
-#git_password = db['git']['Password']
-#git_name = db['git']['Name']
-#git_email = db['git']['Email']
-git_account = db['git']['Account']
+data_bag("server_data_bag")
+this_data_bag = data_bag_item("server_data_bag", "#{server_type}")
+
 
 package "git-core" do
   action :install
@@ -47,7 +47,7 @@ end
 =end
 
 
-git_repos = node['environment']['git_repos'] 
+git_repos = this_data_bag[datacenter][environment][location]['git_repos'] 
 git_repos.each do |repo|
 
   execute "git_stash" do
@@ -59,7 +59,7 @@ git_repos.each do |repo|
 
   
   
-  if repo.include? "rtb-devops" 
+  if repo.include? "cloud-devops" 
     git "/var/#{repo}" do
         repository "git@github.com:davidmontgom/#{repo}.git"
         revision branch_name
@@ -105,25 +105,6 @@ git_repos.each do |repo|
     end
   end
   
-  if repo.include? "-fabric"
-    bash "add_fabric_pythonpath_fabric" do
-      user "root"
-      code <<-EOH
-        echo "export PYTHONPATH=$PYTHONPATH:/var/#{repo}" | tee -a /root/.bashrc
-        source /root/.bashrc
-        touch /var/chef/cache/pythonpath-#{repo}.lock
-      EOH
-      action :run
-      not_if {File.exists?("/var/chef/cache/pythonpath-#{repo}.lock")}
-    end
-  end
-  
-  if repo.include? "-settings"
-    link "/etc/ec2/settings.yaml" do
-      to "/var/#{repo}/settings.yaml"
-    end
-  end
-
 end
 
 
