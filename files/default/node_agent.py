@@ -44,10 +44,10 @@ else:
 
 def getSock(parms):
     if running_in_pydev==False:
-        CARBON_SERVER = parms['monitor_server']
+        CARBON_SERVER = monitor_server
         print CARBON_SERVER
     else:
-        CARBON_SERVER = parms['monitor_server']
+        CARBON_SERVER = monitor_server
     CARBON_PORT = 2003
     sock = socket()
     try:
