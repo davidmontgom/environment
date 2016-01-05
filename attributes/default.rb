@@ -5,6 +5,6 @@ default['environment']['chef']['chef_server_url'] = ""
 default['environment']['chef']['node_name'] = ""
 default['environment']['chef']['cookbook_path'] = ""
 default['environment']['aws']['keys'] = []
-default['environment']['class_path'] = "/var/rtb-devops/classes"
+default['environment']['class_path'] = "/var/cloud-devops/classes"
 
 
