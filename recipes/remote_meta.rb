@@ -35,7 +35,7 @@ file "/etc/ec2/#{node.chef_environment}" do
 end
 
 class_path = node['environment']['class_path'] 
-settings_path = "/var/#{slug}-settngs"
+settings_path = "/var/#{slug}-settings"
 
 template "/etc/ec2/meta_data.yaml" do
   path "/etc/ec2/meta_data.yaml"
