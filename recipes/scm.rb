@@ -54,7 +54,7 @@ git_repos.each do |repo|
 
   
   
-  if repo.include? "bootops" 
+  if repo=="bootops" 
     git "/var/#{repo}" do
         repository "git@github.com:davidmontgom/#{repo}.git"
         revision branch_name

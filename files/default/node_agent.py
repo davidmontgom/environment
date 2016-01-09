@@ -13,7 +13,7 @@ except ImportError:
 
 
 def getParms():
-    f = open('/etc/ec2/meta_data.yaml')
+    f = open('/root/.bootops.yaml')
     meta = load(f, Loader=Loader)
     f.close()
     parms = dict(meta.items())
