@@ -1,8 +1,10 @@
 datacenter = node.name.split('-')[0]
-location = node.name.split('-')[1]
-environment = node.name.split('-')[2]
-slug = node.name.split('-')[3] 
-server_type = node.name.split('-')[4]
+environment = node.name.split('-')[1]
+location = node.name.split('-')[2]
+server_type = node.name.split('-')[3]
+slug = node.name.split('-')[4] 
+cluster_slug = File.read("/var/cluster_slug.txt")
+cluster_slug = cluster_slug.gsub(/\n/, "") 
 
 data_bag("meta_data_bag")
 git = data_bag_item("meta_data_bag", "git")
@@ -24,13 +26,6 @@ else
     branch_name = "master"
 end
 
-directory "/etc/ec2" do
-  owner "root"
-  group "root"
-  mode "0755"
-  recursive true
-  action :create
-end
 
 =begin
 bash "auth_git" do
@@ -47,7 +42,7 @@ end
 =end
 
 
-git_repos = this_data_bag[datacenter][environment][location]['git_repos'] 
+git_repos = this_data_bag[datacenter][environment][location][cluster_slug]['git_repos'] 
 git_repos.each do |repo|
 
   execute "git_stash" do
@@ -59,7 +54,7 @@ git_repos.each do |repo|
 
   
   
-  if repo.include? "cloud-devops" 
+  if repo.include? "bootops" 
     git "/var/#{repo}" do
         repository "git@github.com:davidmontgom/#{repo}.git"
         revision branch_name
@@ -92,7 +87,7 @@ git_repos.each do |repo|
   end
   
   
-  if repo.include? "-devops"
+  if repo=="bootops"
     bash "add_devops_pythonpath_devops" do
       user "root"
       code <<-EOH
