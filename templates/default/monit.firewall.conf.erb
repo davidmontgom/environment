@@ -1,5 +1,5 @@
-#monit procmatch ".*/var/cloud-devops/ufw_firewall.py*"
+#monit procmatch ".*/var/bootops/ufw_firewall.py*"
 check process firewall
-  with matching ".*/var/cloud-devops/ufw_firewall.py*"
+  with matching ".*/var/bootops/ufw_firewall.py*"
   start program = "/usr/local/bin/supervisorctl start firewall_server::"
   stop program = "/usr/local/bin/supervisorctl stop firewall_server::"
