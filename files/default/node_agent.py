@@ -181,7 +181,7 @@ while True:
     lines = []
     #"bidder.hongkong.development.nodename"
     for metric_name, metric_value in update_data.iteritems():
-        tree = "%s.%s.%s.%s" % (server_type,location,environment,nodename.replace('.','-'))
+        tree = "%s.%s.%s.%s.%s" % (server_type,slug,location,environment,nodename.replace('.','-'))
         lines.append("%s.%s %s %d" % (tree,metric_name,metric_value,now))
     
     message = '\n'.join(lines) + '\n' #all lines must end in a newline
