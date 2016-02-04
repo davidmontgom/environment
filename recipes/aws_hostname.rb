@@ -1,3 +1,4 @@
+
 nodename = node.name
 
 bash "aws_hostname" do

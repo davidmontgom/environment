@@ -9,6 +9,7 @@ cluster_slug = cluster_slug.gsub(/\n/, "")
 data_bag("meta_data_bag")
 git = data_bag_item("meta_data_bag", "git")
 git_account = git["git_account"]
+git_host = git["git_host"]
 
 data_bag("server_data_bag")
 this_data_bag = data_bag_item("server_data_bag", "#{server_type}")
@@ -56,7 +57,7 @@ git_repos.each do |repo|
   
   if repo=="bootops" 
     git "/var/#{repo}" do
-        repository "git@github.com:davidmontgom/#{repo}.git"
+        repository "git@bitbucket.org:davidmontgom/#{repo}.git"
         revision branch_name
         action :sync
         user "root"
@@ -64,7 +65,7 @@ git_repos.each do |repo|
 
   else
     git "/var/#{repo}" do
-        repository "git@github.com:#{git_account}/#{repo}.git"
+        repository "#{git_host}:#{git_account}/#{repo}.git"
         revision branch_name
         action :sync
         user "root"
