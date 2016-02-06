@@ -52,12 +52,16 @@ def getSock(parms):
     sock = socket()
     try:
       sock.connect( (CARBON_SERVER,CARBON_PORT) )
-      print 'connected to ' + parms['monitor_server']
+      print 'connected to ' + monitor_server
     except:
+      sock = None 
       print "Couldn't connect to %(server)s on port %(port)d, is carbon-agent.py running?" % { 'server':CARBON_SERVER, 'port':CARBON_PORT }
       #sys.exit(1)
     return sock
-sock = getSock(parms)
+
+sock = None
+while sock==None:
+    sock = getSock(parms)
 
 def getCpu():
     cputimes = psutil.cpu_times()
