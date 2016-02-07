@@ -19,12 +19,12 @@ package "git-core" do
   action :install
 end
 
-if node.chef_environment == "development"
-    branch_name = "development"
-elsif node.chef_environment == "staging"
-    branch_name = "staging"
-else
+if node.chef_environment == "production"
     branch_name = "master"
+    bootops_branch_name = "master"
+else
+    branch_name = node.chef_environment
+    bootops_branch_name = "development"
 end
 
 
@@ -58,7 +58,7 @@ git_repos.each do |repo|
   if repo=="bootops" 
     git "/var/#{repo}" do
         repository "git@bitbucket.org:davidmontgom/#{repo}.git"
-        revision branch_name
+        revision bootops_branch_name
         action :sync
         user "root"
     end
