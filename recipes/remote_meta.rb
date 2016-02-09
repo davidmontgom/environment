@@ -25,7 +25,7 @@ template "/root/.bootops.yaml" do
     :class_path => "#{class_path}",:settings_path => "#{settings_path}",
     :slug => "#{slug}"
   })
-end
+end 
 
 package "tmux" do
   action :install
@@ -34,6 +34,12 @@ package "htop" do
   action :install
 end
 package "iftop" do
+  action :install
+end
+package "iotop" do
+  action :install
+end
+package "ncdu" do
   action :install
 end
 package "telnet" do
