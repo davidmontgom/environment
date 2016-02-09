@@ -5,7 +5,12 @@
 #	if failed port 22 protocol ssh then restarts
 #	if 5 restarts within 5 cycles then timeout
 	
-check process nodeAgent
-	with pidfile "/etc/sv/nodeAgent/supervise/pid"
-	start program = "/usr/bin/sv nodeAgent start"
-	stop program = "/usr/bin/sv nodeAgent stop"
+#check process nodeAgent
+#	with pidfile "/etc/sv/nodeAgent/supervise/pid"
+#	start program = "/usr/bin/sv nodeAgent start"
+#	stop program = "/usr/bin/sv nodeAgent stop"
+	
+check process node-agent
+  	with matching "/usr/bin/python /var/node_agent.py"
+	start program = "/usr/local/bin/supervisorctl start node_agent_server:"
+	stop program = "/usr/local/bin/supervisorctl stop node_agent_server:"
