@@ -24,8 +24,8 @@ logrotate_app "nodeAgent-rotate" do
   cookbook "logrotate"
   path ["/tmp/nodeAgent.log"]
   frequency "daily"
-  rotate 7
-  #size "10M"
+  rotate 1
+  size "1M"
   create "644 root root"
 end
 

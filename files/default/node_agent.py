@@ -62,6 +62,7 @@ def getSock(parms):
 sock = None
 while sock==None:
     sock = getSock(parms)
+    time.sleep(1)
 
 def getCpu():
     cputimes = psutil.cpu_times()
