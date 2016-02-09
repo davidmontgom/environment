@@ -1,0 +1,20 @@
+[program:node_agent_service]
+command = /usr/bin/python /var/node_agent.py
+autostart=true
+autorestart=true
+
+stopsignal=KILL
+stopasgroup = true
+killasgroup = true
+
+stdout_logfile=/tmp/node_agent_service.log
+stdout_logfile_maxbytes=1MB
+stdout_logfile_backups=1
+
+stderr_logfile = /tmp/node_agent_service.err
+stderr_logfile_maxbytes=1MB
+stderr_logfile_backups=1
+
+[group:node_agent_server]
+programs=node_agent_service
+

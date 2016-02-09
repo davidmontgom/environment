@@ -11,11 +11,28 @@ easy_install_package "psutil" do
   action :install
 end
 
-cookbook_file "/var/local/node_agent.py" do
-  source "node_agent.py"
-  mode 00744
+execute "restart_node_agent" do
+  command "sudo supervisorctl restart node_agent_server:"
+  action :nothing
 end
 
+cookbook_file "/var/node_agent.py" do
+  source "node_agent.py"
+  mode 00744
+  notifies :run, "execute[restart_node_agent]"
+end
+
+template "/etc/supervisor/conf.d/supervisord.node.agent.include.conf" do
+  path "/etc/supervisor/conf.d/supervisord.node.agent.include.conf"
+  source "supervisord.node.agent.include.conf.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+  notifies :restart, resources(:service => "supervisord"), :immediately 
+end
+service "supervisord"
+
+=begin
 include_recipe "runit"
 runit_service "nodeAgent"
 
@@ -28,4 +45,4 @@ logrotate_app "nodeAgent-rotate" do
   size "1M"
   create "644 root root"
 end
-
+=end
