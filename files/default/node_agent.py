@@ -61,6 +61,7 @@ def getSock(parms):
 
 sock = None
 while sock==None:
+    monitor_server = open('/var/chef/cache/monitor_ip_address.txt').readlines()[0].strip()
     sock = getSock(parms)
     time.sleep(1)
 
