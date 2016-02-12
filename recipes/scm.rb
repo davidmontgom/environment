@@ -62,6 +62,16 @@ git_repos.each do |repo|
         action :sync
         user "root"
     end
+    bash "install bootops" do
+      user "root"
+      code <<-EOH
+        cd /var/bootops
+        /usr/bin/python setup.py install
+      EOH
+      action :run
+    end
+    
+    
 
   else
     git "/var/#{repo}" do
