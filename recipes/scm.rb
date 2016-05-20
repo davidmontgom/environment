@@ -16,12 +16,20 @@ this_data_bag = data_bag_item("server_data_bag", "#{server_type}")
 
 
 package "python-setuptools" do
+  options "-U"
   action :install
 end
 package "python-dev" do
   action :install
 end
 
+package "libffi-dev" do
+  action :install
+end
+
+package "libssl-dev" do
+  action :install
+end
 
 
 package "git-core" do
