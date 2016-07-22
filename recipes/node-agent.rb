@@ -1,14 +1,17 @@
 package "python-dev" do
   action :install
 end
+
 package "python-setuptools" do
-  action :install
+  action [:install,:upgrade]
 end
-easy_install_package "pyyaml" do
-  action :install
+
+python_package "pyyaml" do
+  action [:install, :upgrade]
 end
-easy_install_package "psutil" do
-  action :install
+
+python_package "psutil" do
+  action [:install, :upgrade]
 end
 
 execute "restart_node_agent" do
