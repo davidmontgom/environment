@@ -1,6 +1,6 @@
 
 nodename = node.name
-if node.platform_version.to_f == 14.04
+if node['platform_version'].to_f == 14.04
 	if node.chef_environment!="local"
 		bash "aws_hostname" do
 		  user "root" 
@@ -19,7 +19,7 @@ if node.platform_version.to_f == 14.04
 	end
 end
 
-if node.platform_version.to_f == 16.04
+if node['platform_version'].to_f == 16.04
 	if node.chef_environment!="local"
 		bash "aws_hostname" do
 		  user "root" 
