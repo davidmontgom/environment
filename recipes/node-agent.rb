@@ -6,9 +6,7 @@ package "python-setuptools" do
   action [:install,:upgrade]
 end
 
-python_package "pyyaml" do
-  action [:install, :upgrade]
-end
+python_package 'pyyaml' 
 
 python_package "psutil" do
   action [:install, :upgrade]
