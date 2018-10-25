@@ -14,7 +14,6 @@ git_host = git["git_host"]
 data_bag("server_data_bag")
 this_data_bag = data_bag_item("server_data_bag", "#{server_type}")
 
-python_package "setuptools"
 
 
 package "python-dev" do
