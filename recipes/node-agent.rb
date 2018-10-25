@@ -1,7 +1,20 @@
+=begin
 package "python-dev" do
   action :install
 end
+=end
 
+
+bash "install_env_node_agent" do
+  cwd "/usr/share"
+  code <<-EOH
+    pip install pyyaml
+    pip install --upgrade psutil
+  EOH
+end
+
+
+=begin
 package "python-setuptools" do
   action [:install,:upgrade]
 end
@@ -11,6 +24,7 @@ python_package 'pyyaml'
 python_package "psutil" do
   action [:install, :upgrade]
 end
+=end
 
 execute "restart_node_agent" do
   command "sudo supervisorctl restart node_agent_server:"
