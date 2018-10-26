@@ -11,7 +11,7 @@ AWS_SECRET_ACCESS_KEY = aws[node.chef_environment]['AWS_SECRET_ACCESS_KEY']
 
 
 directory "/root/.aws" do
-  mode "0600"
+  mode "0644"
   recursive true
   action :create
 end
@@ -22,7 +22,7 @@ template "/root/.aws/credentials" do
   source "aws_credentials.erb"
   owner "root"
   group "root"
-  mode "0600"
+  mode "0644"
   variables({
     :AWS_ACCESS_KEY_ID => "#{AWS_ACCESS_KEY_ID}", :AWS_SECRET_ACCESS_KEY => "#{AWS_SECRET_ACCESS_KEY}"
   })
