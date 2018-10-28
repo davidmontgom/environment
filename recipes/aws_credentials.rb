@@ -27,3 +27,14 @@ template "/root/.aws/credentials" do
     :AWS_ACCESS_KEY_ID => "#{AWS_ACCESS_KEY_ID}", :AWS_SECRET_ACCESS_KEY => "#{AWS_SECRET_ACCESS_KEY}"
   })
 end 
+
+template "/root/.aws/config" do
+  path "/root/.aws/config"
+  source "aws_config.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables({
+    :AWS_ACCESS_KEY_ID => "#{AWS_ACCESS_KEY_ID}", :AWS_SECRET_ACCESS_KEY => "#{AWS_SECRET_ACCESS_KEY}"
+  })
+end 
