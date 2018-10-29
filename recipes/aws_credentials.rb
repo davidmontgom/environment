@@ -10,6 +10,10 @@ AWS_ACCESS_KEY_ID = aws[node.chef_environment]['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = aws[node.chef_environment]['AWS_SECRET_ACCESS_KEY']
 
 
+package "awscli" do
+  action :install
+end
+
 directory "/root/.aws" do
   mode "0644"
   recursive true
