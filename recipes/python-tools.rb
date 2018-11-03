@@ -33,3 +33,10 @@ bash "install_python2_setuptools" do
   	pip install --upgrade setuptools
   EOH
 end
+
+
+bash "install_python2_boto3" do
+  code <<-EOH
+  	pip install boto3 --ignore-installed
+  EOH
+end
