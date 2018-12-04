@@ -12,6 +12,12 @@ AWS_SECRET_ACCESS_KEY = aws[node.chef_environment]['AWS_SECRET_ACCESS_KEY']
 class_path = node['environment']['class_path'] 
 settings_path = "/var/#{slug}-settings"
 
+if datacenter=='aws'
+  region_id = node['ec2']['placement_availability_zone'].chop
+else
+  region_id = 'none'
+
+
 template "/root/.bootops.yaml" do
   path "/root/.bootops.yaml"
   source "meta_data.yaml.erb"
@@ -23,7 +29,7 @@ template "/root/.bootops.yaml" do
     :location => "#{location}", :datacenter => "#{datacenter}", 
     :server_type => "#{server_type}", :environment => "#{environment}",
     :class_path => "#{class_path}",:settings_path => "#{settings_path}",
-    :slug => "#{slug}"
+    :slug => "#{slug}", :region_id => "#{region_id}"
   })
 end 
 
