@@ -16,7 +16,7 @@ if datacenter=='aws'
   region_id = node['ec2']['placement_availability_zone'].chop
 else
   region_id = 'none'
-
+end
 
 template "/root/.bootops.yaml" do
   path "/root/.bootops.yaml"
