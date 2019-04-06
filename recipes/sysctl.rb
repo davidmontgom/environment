@@ -1,3 +1,5 @@
+#https://www.tecmint.com/increase-set-open-file-limits-in-linux/
+
 bash "restart_sysctl" do
   user "root"
   code <<-EOH
@@ -34,34 +36,36 @@ end
 execute "modify_ulimit_www_soft" do
   command "echo 'www-data soft nofile 100000' | tee -a /etc/security/limits.conf"
   action :run
-  not_if {File.exists?("/tmp/ulimit_lock")}
+  not_if {File.exists?("/var/chef/cache/ulimit.lock")}
 end
 execute "modify_ulimit_www_hard" do
   command "echo 'www-data hard nofile 100000' | tee -a /etc/security/limits.conf"
   action :run
-  not_if {File.exists?("/tmp/ulimit_lock")}
+  not_if {File.exists?("/var/chef/cache/ulimit.lock")}
 end
 execute "modify_ulimit_root_soft" do
   command "echo 'root soft nofile 100000' | tee -a /etc/security/limits.conf"
   action :run
-  not_if {File.exists?("/tmp/ulimit_lock")}
+  not_if {File.exists?("/var/chef/cache/ulimit.lock")}
 end
 execute "modify_ulimit_root_hard" do
   command "echo 'root hard nofile 100000' | tee -a /etc/security/limits.conf"
   action :run
-  not_if {File.exists?("/tmp/ulimit_lock")}
+  not_if {File.exists?("/var/chef/cache/ulimit.lock")}
 end
 execute "modify_ulimit_all_soft" do
   command "echo '* soft nofile 100000' | tee -a /etc/security/limits.conf"
   action :run
-  not_if {File.exists?("/tmp/ulimit_lock")}
+  not_if {File.exists?("/var/chef/cache/ulimit.lock")}
 end
 execute "modify_ulimit_all_hard" do
   command "echo '* hard nofile 100000' | tee -a /etc/security/limits.conf"
   action :run
-  not_if {File.exists?("/tmp/ulimit_lock")}
+  not_if {File.exists?("/var/chef/cache/ulimit.lock")}
 end
-file "/tmp/ulimit_lock" do
+
+
+file "/var/chef/cache/ulimit.lock" do
   owner "root"
   group "root"
   mode "0755"
@@ -77,4 +81,4 @@ bash "restart_sysctl_redis" do
   EOH
   action :run  
   not_if {File.exists?("/var/chef/cache/sysctl_redis.lock")}
-end
+end 
