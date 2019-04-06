@@ -31,6 +31,21 @@ command "ulimit -SHn 65535"
 action :run
 not_if {File.exists?("/tmp/ulimit_lock")}
 end
+
+cat /proc/sys/fs/file-max
+200000
+
+ulimit -Hn
+100000
+
+ ulimit -Sn
+100000
+
+ ulimit
+unlimited
+
+
+cat /proc/sys/net/core/somaxconn
 =end
 
 execute "modify_ulimit_www_soft" do
@@ -60,6 +75,11 @@ execute "modify_ulimit_all_soft" do
 end
 execute "modify_ulimit_all_hard" do
   command "echo '* hard nofile 100000' | tee -a /etc/security/limits.conf"
+  action :run
+  not_if {File.exists?("/var/chef/cache/ulimit.lock")}
+end
+execute "modify_somaxconn" do
+  command "sysctl -w net.core.somaxconn=10000"
   action :run
   not_if {File.exists?("/var/chef/cache/ulimit.lock")}
 end
