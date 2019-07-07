@@ -62,10 +62,12 @@ git_repos.each do |repo|
 
   execute "git_stash" do
     cwd "/var/#{repo}"
-    command "git stash"
+    command "git config --global user.email 'you@example.com';git config --global user.name 'Your Name';git stash"
     action :run
     only_if {File.exists?("/var/#{repo}")}
   end
+
+
 
   
   
